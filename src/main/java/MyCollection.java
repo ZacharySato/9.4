@@ -97,7 +97,7 @@ public class MyCollection<E> implements Collection<E> {
     @Override
     public final boolean removeAll(final Collection<?> c) {
         boolean flag = false;
-        //при удалении элемента размер коллекции уменьшается, поэтому тут и в retainAll с конца:
+        //при удалении элемента размер коллекции уменьшается, поэтому с конца:
         for (int i = size - 1; i >= 0; i--) {
             Object o = elementData[i];
             if (c.contains(o)) {
@@ -123,10 +123,11 @@ public class MyCollection<E> implements Collection<E> {
 
     @Override
     public final void clear() {
-        for (int i = 0; i < size; i++) {
-            elementData[i] = null;
+        Iterator<E> i = iterator();
+        while (i.hasNext()) {
+            i.next();
+            i.remove();
         }
-        size = 0;
     }
 
     private class MyIterator<T> implements Iterator<T> {
@@ -156,6 +157,7 @@ public class MyCollection<E> implements Collection<E> {
             }
             System.arraycopy(elementData, cursor, elementData, cursor - 1, size - cursor);
             elementData[--size] = null;
+            cursor--;
             removed = true;
         }
     }
