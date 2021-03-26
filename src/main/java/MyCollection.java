@@ -38,10 +38,10 @@ public class MyCollection<E> implements Collection<E> {
     @Override
     public final boolean contains(final Object o) {
         for (E e : this) {
-            if (e != null && e.equals(o)) {
+            if (e == null && o == null) {
                 return true;
             }
-            if (e == null && o == null) {
+            if (e != null && e.equals(o)) {
                 return true;
             }
         }
